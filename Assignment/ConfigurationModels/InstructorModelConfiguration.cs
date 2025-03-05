@@ -16,11 +16,13 @@ namespace Assignment.ConfigurationModels
             builder.HasOne( I => I.Department)
                 .WithMany(D => D.Instructors)
                 .HasForeignKey(I => I.Dep_ID)
+                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
 
             builder.HasMany(I => I.Course_Insts)
                 .WithOne(CI => CI.Instructor)
                 .HasForeignKey(CI => CI.Inst_ID)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
         }
     }

@@ -8,18 +8,16 @@ using System.Threading.Tasks;
 
 namespace Assignment.Models
 {
-    [Table("Instructors")]
     public class Instructor
     {
-        [Key]
+        
         public int ID { get; set; }
-        [Required]
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
         public int Bouns { get; set; }
+
         [Column("Salary" , TypeName = "decimal(10,2)")]
         public decimal Salary { get; set; }
 
-        [Required]
         public string? Address { get; set; }
         [Column("HourRate", TypeName = "decimal(10,2)")]
         public decimal HourRate { get; set; }

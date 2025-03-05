@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace Assignment.Models
 {
-    [Table("Courses")]
     public class Course
     {
-        [Key]
         public int ID { get; set; }
 
         [Column("Duration", TypeName = "int")]
@@ -23,6 +21,7 @@ namespace Assignment.Models
 
         [Column("Description", TypeName = "nvarchar(Max)")]
         public string? Description { get; set; }
+
         public int Top_ID { get; set; }
         public Topic Topic { get; set; } = null!;
         public ICollection<Stud_Course> Stud_Courses { get; set; } = new HashSet<Stud_Course>();

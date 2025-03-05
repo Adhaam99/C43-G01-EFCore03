@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignment.Migrations
 {
     [DbContext(typeof(ITIDbContext))]
-    [Migration("20250226212113_RelationShipsMigration")]
-    partial class RelationShipsMigration
+    [Migration("20250305153508_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,38 +48,27 @@ namespace Assignment.Migrations
                     b.Property<int>("Top_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("TopicID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("TopicID");
+                    b.HasIndex("Top_ID");
 
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Assignment.Models.Course_Inst", b =>
                 {
-                    b.Property<int>("Inst_ID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Course_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseID")
+                    b.Property<int>("Inst_ID")
                         .HasColumnType("int");
 
                     b.Property<int>("Evaluation")
                         .HasColumnType("int");
 
-                    b.Property<int>("InstructorID")
-                        .HasColumnType("int");
+                    b.HasKey("Course_ID", "Inst_ID");
 
-                    b.HasKey("Inst_ID", "Course_ID");
-
-                    b.HasIndex("CourseID");
-
-                    b.HasIndex("InstructorID");
+                    b.HasIndex("Inst_ID");
 
                     b.ToTable("Course_Insts");
                 });
@@ -119,7 +108,6 @@ namespace Assignment.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Bouns")
@@ -132,9 +120,6 @@ namespace Assignment.Migrations
                         .HasColumnType("decimal(10,2)")
                         .HasColumnName("HourRate");
 
-                    b.Property<int?>("ManagedDepartmentID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -145,7 +130,7 @@ namespace Assignment.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ManagedDepartmentID");
+                    b.HasIndex("Dep_ID");
 
                     b.ToTable("Instructors");
                 });
@@ -158,20 +143,12 @@ namespace Assignment.Migrations
                     b.Property<int>("Course_ID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Grade")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentID")
                         .HasColumnType("int");
 
                     b.HasKey("Stud_ID", "Course_ID");
 
-                    b.HasIndex("CourseID");
-
-                    b.HasIndex("StudentID");
+                    b.HasIndex("Course_ID");
 
                     b.ToTable("stud_Courses");
                 });
@@ -190,9 +167,6 @@ namespace Assignment.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentID")
-                        .HasColumnType("int");
-
                     b.Property<int>("Dept_ID")
                         .HasColumnType("int");
 
@@ -205,7 +179,7 @@ namespace Assignment.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("DepartmentID");
+                    b.HasIndex("Dept_ID");
 
                     b.ToTable("Students");
                 });
@@ -219,7 +193,6 @@ namespace Assignment.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -231,8 +204,8 @@ namespace Assignment.Migrations
                 {
                     b.HasOne("Assignment.Models.Topic", "Topic")
                         .WithMany("Courses")
-                        .HasForeignKey("TopicID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Top_ID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Topic");
@@ -242,13 +215,13 @@ namespace Assignment.Migrations
                 {
                     b.HasOne("Assignment.Models.Course", "Course")
                         .WithMany("Course_Insts")
-                        .HasForeignKey("CourseID")
+                        .HasForeignKey("Course_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Assignment.Models.Instructor", "Instructor")
                         .WithMany("Course_Insts")
-                        .HasForeignKey("InstructorID")
+                        .HasForeignKey("Inst_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -260,9 +233,9 @@ namespace Assignment.Migrations
             modelBuilder.Entity("Assignment.Models.Department", b =>
                 {
                     b.HasOne("Assignment.Models.Instructor", "Manager")
-                        .WithOne("Department")
+                        .WithOne("ManagedDepartment")
                         .HasForeignKey("Assignment.Models.Department", "Ins_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Manager");
@@ -270,24 +243,26 @@ namespace Assignment.Migrations
 
             modelBuilder.Entity("Assignment.Models.Instructor", b =>
                 {
-                    b.HasOne("Assignment.Models.Department", "ManagedDepartment")
+                    b.HasOne("Assignment.Models.Department", "Department")
                         .WithMany("Instructors")
-                        .HasForeignKey("ManagedDepartmentID");
+                        .HasForeignKey("Dep_ID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                    b.Navigation("ManagedDepartment");
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Assignment.Models.Stud_Course", b =>
                 {
                     b.HasOne("Assignment.Models.Course", "Course")
                         .WithMany("Stud_Courses")
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Course_ID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Assignment.Models.Student", "Student")
                         .WithMany("Stud_Courses")
-                        .HasForeignKey("StudentID")
+                        .HasForeignKey("Stud_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -300,8 +275,8 @@ namespace Assignment.Migrations
                 {
                     b.HasOne("Assignment.Models.Department", "Department")
                         .WithMany("Students")
-                        .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Dept_ID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Department");
@@ -325,8 +300,7 @@ namespace Assignment.Migrations
                 {
                     b.Navigation("Course_Insts");
 
-                    b.Navigation("Department")
-                        .IsRequired();
+                    b.Navigation("ManagedDepartment");
                 });
 
             modelBuilder.Entity("Assignment.Models.Student", b =>
