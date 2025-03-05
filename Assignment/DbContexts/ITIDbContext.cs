@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Assignment.DbContext
 {
-    internal class ITIDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class ITIDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
         public ITIDbContext() : base()
         {

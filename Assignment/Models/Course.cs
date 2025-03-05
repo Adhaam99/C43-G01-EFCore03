@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Assignment.Models
 {
     [Table("Courses")]
-    class Course
+    public class Course
     {
         [Key]
         public int ID { get; set; }

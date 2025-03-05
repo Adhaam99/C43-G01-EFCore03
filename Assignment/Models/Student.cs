@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assignment.Models
 {
-    class Student
+    public class Student
     {
         [Key]
         public int ID { get; set; }

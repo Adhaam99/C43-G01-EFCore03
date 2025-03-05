@@ -52,7 +52,7 @@ namespace Assignment.Migrations
 
                     b.HasIndex("TopicID");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("Assignment.Models.Course_Inst", b =>
@@ -78,7 +78,7 @@ namespace Assignment.Migrations
 
                     b.HasIndex("InstructorID");
 
-                    b.ToTable("Course_Insts");
+                    b.ToTable("Course_Insts", (string)null);
                 });
 
             modelBuilder.Entity("Assignment.Models.Department", b =>
@@ -104,7 +104,7 @@ namespace Assignment.Migrations
                     b.HasIndex("Ins_ID")
                         .IsUnique();
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Assignment.Models.Instructor", b =>
@@ -144,7 +144,7 @@ namespace Assignment.Migrations
 
                     b.HasIndex("ManagedDepartmentID");
 
-                    b.ToTable("Instructors");
+                    b.ToTable("Instructors", (string)null);
                 });
 
             modelBuilder.Entity("Assignment.Models.Stud_Course", b =>
@@ -170,7 +170,7 @@ namespace Assignment.Migrations
 
                     b.HasIndex("StudentID");
 
-                    b.ToTable("stud_Courses");
+                    b.ToTable("stud_Courses", (string)null);
                 });
 
             modelBuilder.Entity("Assignment.Models.Student", b =>
@@ -204,7 +204,7 @@ namespace Assignment.Migrations
 
                     b.HasIndex("DepartmentID");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Assignment.Models.Topic", b =>
@@ -221,7 +221,7 @@ namespace Assignment.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Topics");
+                    b.ToTable("Topics", (string)null);
                 });
 
             modelBuilder.Entity("Assignment.Models.Course", b =>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assignment.Models
 {
-    class Topic
+    public class Topic
     {
         public int ID { get; set; }
 

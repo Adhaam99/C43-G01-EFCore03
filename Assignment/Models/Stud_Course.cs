@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Assignment.Models
 {
     [PrimaryKey("Stud_ID" , "Course_ID")]
-    class Stud_Course
+    public class Stud_Course
     {
         public int Stud_ID { get; set; }
         public Student Student { get; set; } = null!;

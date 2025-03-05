@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Assignment.ConfigurationModels
 {
-    class InstructorModelConfiguration : IEntityTypeConfiguration<Instructor>
+    public class InstructorModelConfiguration : IEntityTypeConfiguration<Instructor>
     {
         public void Configure(EntityTypeBuilder<Instructor> builder)
         {
