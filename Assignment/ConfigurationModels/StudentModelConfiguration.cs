@@ -24,6 +24,7 @@ namespace Assignment.ConfigurationModels
                 .HasForeignKey(SC => SC.Stud_ID)
                 .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
+
         }
     }
 }

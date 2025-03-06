@@ -4,6 +4,7 @@ using Assignment.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignment.Migrations
 {
     [DbContext(typeof(ITIDbContext))]
-    partial class ITIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250305204311_AddDepartmentIdentity")]
+    partial class AddDepartmentIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +84,7 @@ namespace Assignment.Migrations
                     b.Property<DateOnly>("HiringDate")
                         .HasColumnType("date");
 
-                    b.Property<int?>("Ins_ID")
+                    b.Property<int>("Ins_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -91,18 +94,9 @@ namespace Assignment.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("Ins_ID")
-                        .IsUnique()
-                        .HasFilter("[Ins_ID] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Departments");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 10,
-                            HiringDate = new DateOnly(2025, 3, 5),
-                            Name = "Computer Science"
-                        });
                 });
 
             modelBuilder.Entity("Assignment.Models.Instructor", b =>
@@ -241,7 +235,8 @@ namespace Assignment.Migrations
                     b.HasOne("Assignment.Models.Instructor", "Manager")
                         .WithOne("ManagedDepartment")
                         .HasForeignKey("Assignment.Models.Department", "Ins_ID")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Manager");
                 });

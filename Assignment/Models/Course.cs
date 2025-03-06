@@ -23,9 +23,13 @@ namespace Assignment.Models
         public string? Description { get; set; }
 
         public int Top_ID { get; set; }
-        public Topic Topic { get; set; } = null!;
-        public ICollection<Stud_Course> Stud_Courses { get; set; } = new HashSet<Stud_Course>();
-        public ICollection<Course_Inst> Course_Insts { get; set; } = new HashSet<Course_Inst>();    
+        public virtual Topic Topic { get; set; } = null!;
+        public virtual ICollection<Stud_Course> Stud_Courses { get; set; } = new HashSet<Stud_Course>();
+        public virtual ICollection<Course_Inst> Course_Insts { get; set; } = new HashSet<Course_Inst>();    
 
+        public override string ToString()
+        {
+            return $"ID: {ID}, Name: {Name}, Duration: {Duration}, Description: {Description}, Topic: {Topic}";
+        }
     }
 }

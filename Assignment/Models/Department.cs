@@ -10,16 +10,21 @@ namespace Assignment.Models
 {
     public class Department
     {
+        
         public int ID { get; set; }
 
         [Column("Name", TypeName = "varchar(50)")]
         [Length(3, 50)]
         public string? Name { get; set; }
-        public int Ins_ID { get; set; }
+        public int? Ins_ID { get; set; }
         public DateOnly HiringDate { get; set; }
-        public Instructor Manager { get; set; } = null!;
-        public ICollection<Instructor> Instructors { get; set; } = new HashSet<Instructor>();
-        public ICollection<Student> Students { get; set; } = new HashSet<Student>();
+        public virtual Instructor Manager { get; set; } = null!;
+        public virtual ICollection<Instructor> Instructors { get; set; } = new HashSet<Instructor>();
+        public virtual ICollection<Student> Students { get; set; } = new HashSet<Student>();
 
+        public override string ToString()
+        {
+            return $"ID: {ID}, Name: {Name}, Manager: {Manager}, Hiring Date: {HiringDate}";
+        }
     }
 }

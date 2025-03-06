@@ -18,7 +18,7 @@ namespace Assignment.DbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = .; Database = AssignmentITI; Trusted_Connection = true; TrustServerCertificate = True");
+            optionsBuilder.UseSqlServer("Server = .; Database = AssignmentITI; Trusted_Connection = true; TrustServerCertificate = True").UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

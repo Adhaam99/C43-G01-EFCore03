@@ -13,6 +13,11 @@ namespace Assignment.Models
 
         [Length(3, 50)]
         public string? Name { get; set; }
-        public ICollection<Course> Courses { get; set; } = new HashSet<Course>();
+        public virtual ICollection<Course> Courses { get; set; } = new HashSet<Course>();
+
+        public override string ToString()
+        {
+            return $"ID: {ID}, Name: {Name}";
+        }
     }
 }

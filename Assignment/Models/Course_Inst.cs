@@ -11,11 +11,14 @@ namespace Assignment.Models
     public class Course_Inst
     {
         public int Inst_ID { get; set; }
-        public Instructor Instructor { get; set; } = null!;
+        public virtual Instructor Instructor { get; set; } = null!;
         public int Course_ID { get; set; }
-        public Course Course { get; set; } = null!;
+        public virtual Course Course { get; set; } = null!;
         public int Evaluation { get; set; }
 
-
+        public override string ToString()
+        {
+            return $"Instructor ID: {Inst_ID}, Course ID: {Course_ID}, Evaluation: {Evaluation}";
+        }
     }
 }

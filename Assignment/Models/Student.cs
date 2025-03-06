@@ -22,8 +22,13 @@ namespace Assignment.Models
         [Range(22 , 40)]
         public int Age { get; set; }
         public int Dept_ID { get; set; }
-        public Department Department { get; set; } = null!;
-        public ICollection<Stud_Course> Stud_Courses { get; set; } = new HashSet<Stud_Course>();
+        public virtual Department Department { get; set; } = null!;
+        public virtual ICollection<Stud_Course> Stud_Courses { get; set; } = new HashSet<Stud_Course>();
+
+        public override string ToString()
+        {
+            return $"Student ID: {ID} , First Name: {FName} , Last Name: {LName} , Address: {Address} , Age: {Age} , Department ID: {Dept_ID}";
+        }
 
     }
 }
